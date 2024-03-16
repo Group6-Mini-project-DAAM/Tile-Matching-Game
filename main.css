@@ -1,90 +1,148 @@
-* {
-    box-sizing: border-box;
+body {
+  margin: 0;
+  padding: 0;
 }
+
+.tile {
+  display: block;
+  float: left;
+  border-radius: 5%;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+}
+
+.tile:nth-of-type(4n + 1) {
+  clear: left;
+}
+
+.tile:after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 5%;
+  position: absolute;
+  /*left:0; top:0;*/
+  bottom: 0;
+  right: 0;
+
+  transition: transform 0.2s;
+}
+
+.tile_open:after {
+  transition: transform 0.2s;
+  transform: translateX(-105%);
+}
+
+.tile .fa {
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  color: #fff;
+}
+
+.tile_closed {
+  cursor: normal;
+  opacity: 0.3;
+  transition: opacity 0.5s;
+}
+
+/*Colours*/
 
 body {
-    margin: 0;
+  background-color: #112;
+}
+.tile:after {
+  background-color: #900;
+}
+.tile:hover:after {
+  background-color: #b00;
 }
 
-svg {
-    display: block;
+.tile {
+  background-color: #00c;
+}
+.tile_closed {
+  background-color: #00c;
 }
 
-.game {
-    --this: &;
-    min-width: 575px;
-    height: 100vh;
-    background: #2F4274;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/*Dimensions*/
+/*This is be used to make it more responsive*/
+
+.tile_container {
+  overflow: hidden;
+  width: 90vmin;
+  height: 90vmin;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.game__cards {
-    width: 720px;
-    margin: auto;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-auto-rows: 100px;
-    grid-gap: 20px;
-    padding: 0 20px;
+.tile .fa {
+  font-size: 70px;
+  font-size: 10vmin;
+  line-height: 100px;
+  line-height: 16vmin;
 }
 
-.game__cards.no-event {
-    pointer-events: none;
+.tile {
+  width: 100px;
+  width: 17%;
+  height: 100px;
+  height: 17%;
+  margin: 20px;
+  margin: 4%;
 }
 
-.game__card {
-    position: relative;
-    cursor: pointer;
-    perspective: 700px;
+/*Overlay*/
+
+.overlay_win {
+  position: absolute;
+  top: 25vmin;
+  left: 0;
+  height: 40vmin;
+  width: 100%;
+  text-align: center;
+}
+.overlay_win {
+  background-color: #b00;
 }
 
-.game__card.flipped,
-.game__card.has-match {
-    pointer-events: none;
+.overlay_win h2 {
+  font-size: 15vmin;
+  line-height: 15vmin;
+  margin: 5vmin 0px;
+}
+.overlay_win h2 {
+  color: #112;
+  font-family: 'Roboto', sans-serif;
 }
 
-.game__card.flipped #{$this}__back-card {
-    transform: rotateY(180deg);
+#replay {
+  font-size: 7vmin;
+  display: inline-block;
+  border-radius: 1vmin;
+  padding: 2vmin 4vmin;
+  font-family: 'Roboto', sans-serif;
+  cursor: pointer;
 }
 
-.game__card.flipped #{$this}__front-card {
-    transform: rotateY(360deg);
+#replay {
+  background-color: #112;
+  color: #b00;
 }
 
-.game__back-card,
-.game__front-card {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    background: #F27922;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    backface-visibility: hidden;
-    transition: transform 400ms;
+#replay:hover {
+  color: #e00;
 }
 
-.game__back-card {
-    z-index: 1;
+.overlay_win {
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
 }
-
-.game__front-card {
-    transform: rotateY(180deg);
-}
-
-.footer {
-    text-align: center;
-    padding: 5px 0;
-    color: #ccc;
-    background: #333;
-}
-
-.footer a {
-    color: #21a1e1;
-    text-decoration: none;
+.overlay_win_open {
+  opacity: 0.9;
+  transition: opacity 0.4s;
+  pointer-events: auto;
 }
